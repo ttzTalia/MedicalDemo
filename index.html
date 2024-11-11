@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>时间控件</title>
+</head>
+<style>
+    .cl-seamless-container {
+        overflow: hidden;
+        border:1px solid;
+        height: 100%;
+    }
+
+    .cl-seamless-list {
+        margin: auto 0;
+        padding: auto 0;
+        border:1px solid red;
+        height: 100%;
+        /* 滚动快慢会受滚动列表项的高度影响，在js中调节速率进行控制 */
+        /* animation: cl-scrolling 6s infinite linear; */
+    }
+
+    /* 鼠标移入滚动区域变成手型 */
+    .cl-seamless-container:hover .cl-seamless-list {
+        cursor: pointer;
+    }
+
+    /* 鼠标移入滚动区域暂停动画 */
+    .cl-seamless-container.pause .cl-seamless-list {
+        animation-play-state: paused !important;
+    }
+
+    /* 动画关键帧 */
+    @keyframes cl-scrolling {
+        from {
+            transform: translate(0px, 0%);
+        }
+
+        to {
+            transform: translate(0px, -100%);
+        }
+    }
+</style>
+<body>
+    <div class="cl-seamless-container">
+        <div class="cl-seamless-list">
+            <div class="content-box"></div>
+        </div>
+    </div>
+<script>
+    // var list = [
+    // "/frog/member/get/meter/info",
+    // "/frog/member/get/arrears/info",
+    // "/frog/member/get/fee/info",
+    // "/frog/member/get/payment/info",
+    // "/frog/member/get/meter/info/img",
+    // "/kylin/log/approval/pass",
+    // "/kylin/log/approval/reject",
+    // ]
+    // function trans(list) {
+    //     return list.map(i => {
+    //         return window.btoa(i)
+    //     })
+    // }
+    // var res = trans(list)
+    // console.log(res)
+    var data = [
+        {id:'1',value:'滚动项1'},
+        {id:'2',value:'滚动项2'},
+        // {id:'3',value:'滚动项3'},
+        // {id:'4',value:'滚动项4'},
+        // {id:'5',value:'滚动项5'},
+        // {id:'6',value:'滚动项6'},
+        // {id:'7',value:'滚动项7'},
+        // {id:'8',value:'滚动项8'},
+        // {id:'9',value:'滚动项9'},
+        // {id:'10',value:'滚动项10'},
+    ]
+    var container = document.getElementsByClassName("content-box")[0];
+    data.forEach(function (i){
+        var ele = document.createElement("div");
+        ele.innerHTML = i.value;
+        container.appendChild(ele)
+    })
+    function animation () {
+    var seamless_container = document.getElementsByClassName("cl-seamless-container");
+    for (let i = 0; i < seamless_container.length; i++) {
+        if (seamless_container[i].children.length > 0) {
+            // 限制每个容器的高度
+            let seamless_sub = seamless_container[i].children[0];
+            seamless_container[i].style="max-height: " + seamless_sub.clientHeight + "px";
+            // 调节滚动速率，使滚动速率不至于过快或过慢
+            let scroll_speed = Math.max(4, Math.ceil(seamless_sub.clientHeight / 35));
+            seamless_sub.style = "animation: cl-scrolling " + scroll_speed + "s infinite linear";
+            // 复制一份完全相同的列表，实现无缝滚动
+            seamless_container[i].innerHTML += seamless_container[i].innerHTML;
+        }
+
+        // 监听鼠标移入事件，暂停动画; 同时鼠标移出，继续动画
+        seamless_container[i].addEventListener("mouseenter", function(event) {
+            event.target.classList.add("pause");
+            
+        });
+        seamless_container[i].addEventListener("mouseleave", function(event) {
+            event.target.classList.remove("pause");
+        })
+    }
+}
+
+animation();
+</script>
+
+
+
+</body>
+</html>
