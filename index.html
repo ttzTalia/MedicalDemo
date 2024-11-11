@@ -9,14 +9,15 @@
 <style>
     .cl-seamless-container {
         overflow: hidden;
-        border:1px solid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 100%;
     }
 
     .cl-seamless-list {
         margin: auto 0;
         padding: auto 0;
-        border:1px solid red;
         height: 100%;
         /* 滚动快慢会受滚动列表项的高度影响，在js中调节速率进行控制 */
         /* animation: cl-scrolling 6s infinite linear; */
@@ -50,33 +51,17 @@
         </div>
     </div>
 <script>
-    // var list = [
-    // "/frog/member/get/meter/info",
-    // "/frog/member/get/arrears/info",
-    // "/frog/member/get/fee/info",
-    // "/frog/member/get/payment/info",
-    // "/frog/member/get/meter/info/img",
-    // "/kylin/log/approval/pass",
-    // "/kylin/log/approval/reject",
-    // ]
-    // function trans(list) {
-    //     return list.map(i => {
-    //         return window.btoa(i)
-    //     })
-    // }
-    // var res = trans(list)
-    // console.log(res)
     var data = [
         {id:'1',value:'滚动项1'},
         {id:'2',value:'滚动项2'},
-        // {id:'3',value:'滚动项3'},
-        // {id:'4',value:'滚动项4'},
-        // {id:'5',value:'滚动项5'},
-        // {id:'6',value:'滚动项6'},
-        // {id:'7',value:'滚动项7'},
-        // {id:'8',value:'滚动项8'},
-        // {id:'9',value:'滚动项9'},
-        // {id:'10',value:'滚动项10'},
+        {id:'3',value:'滚动项3'},
+        {id:'4',value:'滚动项4'},
+        {id:'5',value:'滚动项5'},
+        {id:'6',value:'滚动项6'},
+        {id:'7',value:'滚动项7'},
+        {id:'8',value:'滚动项8'},
+        {id:'9',value:'滚动项9'},
+        {id:'10',value:'滚动项10'},
     ]
     var container = document.getElementsByClassName("content-box")[0];
     data.forEach(function (i){
